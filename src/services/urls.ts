@@ -37,3 +37,64 @@ export const resolveURL = async (id: string) => {
 
   return url.url;
 };
+
+export const updateURL = async (
+  id: string,
+  body: { url: string },
+  user_id: number,
+) => {
+  if (!body.url) {
+    throw new Error('URL is required');
+  }
+
+  const url = await knex('urls').where({ id }).select(['user_id']).first();
+
+  if (!url) {
+    throw new Error('URL is not found');
+  }
+
+  if (url.user_id !== user_id) {
+    throw new Error("Your don't have permissions to update this URL");
+  }
+
+  const results = await knex('urls')
+    .where({ id })
+    .update({ url: body.url }, '*');
+
+  return results[0];
+};
+
+export const deleteURL = async (id: string, user_id: number) => {
+  const url = await knex('urls').where({ id }).select(['user_id']).first();
+
+  if (!url) {
+    throw new Error('URL is not found');
+  }
+
+  if (url.user_id !== user_id) {
+    throw new Error("Your don't have permissions to update this URL");
+  }
+
+  await knex('urls').where({ id }).delete();
+  return true;
+};
+
+// with pagination params
+export const getURLS = async (
+  user_id: number,
+  limit: number,
+  offset: number,
+) => {
+  const results = await knex('urls')
+    .where({ user_id })
+    .limit(limit || 15)
+    .offset(offset || 0);
+
+  return results;
+};
+
+// first page 0 - 15
+// getURLS(10, 15, 0);
+
+// second page 16 - 31
+// getURLS(10, 15, 15);
