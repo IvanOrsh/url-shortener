@@ -1,0 +1,62 @@
+# Ignore Node.js modules and dependencies
+node_modules/
+
+# Ignore built TypeScript output (if you compile TypeScript to JavaScript)
+dist/
+
+# Ignore any logs and temporary files
+logs/
+*.log*
+npm-debug.log*
+
+# Ignore database files (e.g., SQLite)
+*.sqlite
+
+# Ignore environment-specific files
+.env
+.env.local
+.env.*.local
+
+# Ignore any files related to IDEs or code editors
+.vscode/
+.idea/
+*.code-workspace
+
+# Ignore macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Ignore Windows thumbnail files
+Thumbs.db
+ehthumbs.db
+
+# Ignore Jest snapshots
+__snapshots__/
+
+# Ignore coverage output
+coverage/
+
+# Ignore compiled or minified output
+*.min.js
+*.min.css
+
+# Ignore build and package files
+build/
+dist/
+out/
+.pack
+
+# Ignore Knex-related files
+knexfile.js
+knexfile.ts
+migrations/
+seeds/
+
+# Ignore Koa session files
+sessions/
+
+# Ignore logs and runtime data
+logs/
+run/
+tmp/
