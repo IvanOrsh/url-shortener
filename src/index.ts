@@ -1,3 +1,12 @@
-const sum = (a: number, b: number): number => a + b;
+import dotenv from 'dotenv';
 
-console.log(sum(2, 4));
+import { onDatabaseConnect } from './config/knex';
+
+dotenv.config();
+
+onDatabaseConnect()
+  .then(() => console.log('database is connected'))
+  .catch((err) => {
+    console.log('Error with database connection');
+    console.log(err);
+  });
