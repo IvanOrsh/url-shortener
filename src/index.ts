@@ -1,8 +1,6 @@
-import dotenv from 'dotenv';
+import 'dotenv/config';
 
 import { onDatabaseConnect } from './config/knex';
-
-dotenv.config();
 
 onDatabaseConnect()
   .then(() => console.log('database is connected'))
