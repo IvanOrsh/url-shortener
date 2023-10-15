@@ -49,10 +49,10 @@ out/
 .pack
 
 # Ignore Knex-related files
-knexfile.js
-knexfile.ts
-migrations/
-seeds/
+# knexfile.js
+# knexfile.ts
+# migrations/
+# seeds/
 
 # Ignore Koa session files
 sessions/

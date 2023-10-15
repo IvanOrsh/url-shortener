@@ -8,7 +8,9 @@
     "start:build": "node ./build/index.js",
     "build": "tsc",
     "lint": "eslint",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "knex": "knex init -x ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migration:make": "knex migrate:make $1 -x ts"
   },
   "keywords": [],
   "author": "",
