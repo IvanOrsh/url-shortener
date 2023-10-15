@@ -1,3 +1,7 @@
+## overview
+
+model layer: migrations + src/types
+
 ## For testing purposes: db
 
 ```bash
