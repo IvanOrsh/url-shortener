@@ -7,6 +7,7 @@ export const ConfigSchema = z.object({
   DB_NAME: z.string(),
   DB_USER: z.string(),
   DB_PASSWORD: z.string(),
+  DEBUG: z.string(),
 });
 
 export type Config = z.infer<typeof ConfigSchema>;
