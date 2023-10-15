@@ -11,6 +11,7 @@ npm-debug.log*
 
 # Ignore database files (e.g., SQLite)
 *.sqlite
+postgres-data
 
 # Ignore environment-specific files
 .env
