@@ -8,7 +8,7 @@ export const ConfigSchema = z.object({
   DB_USER: z.string(),
   DB_PASSWORD: z.string(),
   DEBUG: z.string(),
-  PASSWORD_SALT_ROUNDS: z.number(),
+  PASSWORD_SALT_ROUNDS: z.string(),
 });
 
 export type Config = z.infer<typeof ConfigSchema>;
