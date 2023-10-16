@@ -40,7 +40,7 @@ Authorization: Bearer {{authToken}}
 Content-Type: {{contentType}}
 
 {
-  "url": "https://www.microsoft.edu"
+  "url": "https://www.google.com"
 }
 
 ###
