@@ -49,7 +49,12 @@ export const login = async (body: { username: string; password: string }) => {
   const token = await generateToken({ id: user.id });
 
   return {
-    user,
+    user: {
+      id: user.id,
+      username: user.username,
+      created_at: user.created_at,
+      updated_at: user.updated_at,
+    },
     token,
   };
 };
