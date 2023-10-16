@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import knex, { onDatabaseConnect } from './config/knex';
 import httpError from 'http-errors';
-import { createShortURL } from './services/urls';
+import { createShortURL, getURLS } from './services/urls';
 
 const main = async () => {
   try {
@@ -9,7 +9,7 @@ const main = async () => {
     console.log('database is connected');
     // db is ready
 
-    const results = await createShortURL({ url: 'test' }, 1);
+    const results = await getURLS(1, 10, 0);
     console.log(results);
   } catch (err) {
     // Operational Exception
