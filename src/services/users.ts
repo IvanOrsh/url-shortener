@@ -3,6 +3,7 @@ import httpError from 'http-errors';
 
 import { validateLogin, validateRegister } from './validations';
 import { comparePassword, hashPassword } from '../config/encryption';
+import { generateToken } from '../config/jwt';
 
 const getUser = async (username: string) =>
   knex('users').whereRaw('LOWER(username) = LOWER(?)', [username]).first();
@@ -45,5 +46,10 @@ export const login = async (body: { username: string; password: string }) => {
     throw new httpError.Unauthorized('Username or password are incorrect');
   }
 
-  return user;
+  const token = await generateToken({ id: user.id });
+
+  return {
+    user,
+    token,
+  };
 };
