@@ -52,7 +52,7 @@ Content-Type: {{contentType}}
 
 {
   "url": "https://www.microsoft.com",
-  "id": "test_url"
+  "id": "microsoft"
 }
 
 ###
@@ -70,5 +70,19 @@ Content-Type: {{contentType}}
 @authToken = {{login.response.body.token}}
 
 DELETE  http://{{host}}/urls/test_url HTTP/1.1
+Authorization: Bearer {{authToken}}
+Content-Type: {{contentType}}
+
+###
+@authToken = {{login.response.body.token}}
+
+GET  http://{{host}}/visits/ HTTP/1.1
+Authorization: Bearer {{authToken}}
+Content-Type: {{contentType}}
+
+###
+@authToken = {{login.response.body.token}}
+
+GET  http://{{host}}/visits/affe32 HTTP/1.1
 Authorization: Bearer {{authToken}}
 Content-Type: {{contentType}}

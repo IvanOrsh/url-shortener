@@ -8,6 +8,9 @@ const createShortUrlSchema = z.object({
     .string()
     .min(5, { message: 'ID must be at least 5 characters' })
     .max(10, { message: 'ID must not exceed 10 characters' })
+    .refine((value) => !['auth', 'urls', 'visits'].includes(value), {
+      message: 'The selected id is invalid',
+    })
     .optional(),
 
   url: z
