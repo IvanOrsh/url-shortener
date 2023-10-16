@@ -21,6 +21,10 @@
     "@types/bcryptjs": "^2.4.4",
     "@types/http-errors": "^2.0.2",
     "@types/jsonwebtoken": "^9.0.3",
+    "@types/koa": "^2.13.9",
+    "@types/koa__cors": "^4.0.1",
+    "@types/koa__router": "^12.0.1",
+    "@types/koa-bodyparser": "^4.3.10",
     "@types/node": "^20.8.6",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "eslint": "^8.51.0",
@@ -35,11 +39,16 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@koa/cors": "^4.0.0",
+    "@koa/router": "^11.0.2",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.3.1",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
     "knex": "^3.0.1",
+    "koa": "^2.14.2",
+    "koa-bodyparser": "^4.4.1",
+    "koa-helmet": "^7.0.2",
     "pg": "^8.11.3",
     "zod": "^3.22.4"
   }
