@@ -1,7 +1,20 @@
 import 'dotenv/config';
-import knex, { onDatabaseConnect } from './config/knex';
+import Koa from 'koa';
+import cors from '@koa/cors';
+import koaHelmet from 'koa-helmet';
+import bodyParser from 'koa-bodyparser';
 import httpError from 'http-errors';
-import { createShortURL, getURLS } from './services/urls';
+
+import { getConfig } from './config/getConfig';
+import { onDatabaseConnect } from './config/knex';
+
+const { PORT } = getConfig();
+
+const app = new Koa();
+
+app.use(cors());
+app.use(koaHelmet());
+app.use(bodyParser());
 
 const main = async () => {
   try {
@@ -9,8 +22,9 @@ const main = async () => {
     console.log('database is connected');
     // db is ready
 
-    const results = await getURLS(1, 10, 0);
-    console.log(results);
+    app.listen(Number(PORT), () => {
+      console.log(`Server started with port ${PORT}`);
+    });
   } catch (err) {
     // Operational Exception
     if (httpError.isHttpError(err)) {
