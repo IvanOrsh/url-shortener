@@ -48,6 +48,22 @@ const registerUserSchema = z.object({
     }),
 });
 
+const loginUserSchema = z.object({
+  username: z
+    .string()
+    .or(z.undefined())
+    .refine((value) => value !== undefined, {
+      message: 'Username is required',
+    }),
+
+  password: z
+    .string()
+    .or(z.undefined())
+    .refine((value) => value !== undefined, {
+      message: 'Password is required',
+    }),
+});
+
 type BodySchema = ZodObject<RequestBody>;
 
 const validateBody = (body: RequestBody, validation_schema: BodySchema) => {
@@ -73,3 +89,6 @@ export const validateUpdateShortURL = (body: RequestBody) =>
 
 export const validateRegister = (body: RequestBody) =>
   validateBody(body, registerUserSchema);
+
+export const validateLogin = (body: RequestBody) =>
+  validateBody(body, loginUserSchema);
