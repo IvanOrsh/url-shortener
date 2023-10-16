@@ -6,7 +6,7 @@ import knex from '../config/knex';
 export const registerVisit = async (url_id: string, ip: string) =>
   knex('visits').insert({ url_id, ip });
 
-export const getLastVisit = async (
+export const getLastVisits = async (
   user_id: number,
   limit: number,
   offset: number,
