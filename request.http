@@ -23,3 +23,52 @@ Content-Type: {{contentType}}
   "username": "test3",
   "password": "123456"
 }
+
+###
+
+@authToken = {{login.response.body.token}}
+
+GET http://{{host}}/urls/ HTTP/1.1
+Authorization: Bearer {{authToken}}
+Content-Type: {{contentType}}
+
+###
+@authToken = {{login.response.body.token}}
+
+POST http://{{host}}/urls/ HTTP/1.1
+Authorization: Bearer {{authToken}}
+Content-Type: {{contentType}}
+
+{
+  "url": "https://www.microsoft.edu"
+}
+
+###
+@authToken = {{login.response.body.token}}
+
+POST http://{{host}}/urls/ HTTP/1.1
+Authorization: Bearer {{authToken}}
+Content-Type: {{contentType}}
+
+{
+  "url": "https://www.microsoft.com",
+  "id": "test_url"
+}
+
+###
+@authToken = {{login.response.body.token}}
+
+PUT http://{{host}}/urls/test_url HTTP/1.1
+Authorization: Bearer {{authToken}}
+Content-Type: {{contentType}}
+
+{
+  "url": "https://www.reddit.com"
+}
+
+###
+@authToken = {{login.response.body.token}}
+
+DELETE  http://{{host}}/urls/test_url HTTP/1.1
+Authorization: Bearer {{authToken}}
+Content-Type: {{contentType}}
