@@ -1,6 +1,6 @@
-// user_id is going to be validated through our api
-
 import knex from '../config/knex';
+import httpError from 'http-errors';
+
 import { validateCreateShortURL, validateUpdateShortURL } from './validations';
 
 export const createShortURL = async (
@@ -12,7 +12,7 @@ export const createShortURL = async (
   if (body.id) {
     const current_record = await knex('urls').where({ id: body.id }).first();
     if (current_record) {
-      throw new Error(
+      throw new httpError.Conflict(
         'The id that you provided already exists in our database',
       );
     }
@@ -30,7 +30,7 @@ export const resolveURL = async (id: string) => {
   const url = await knex('urls').where({ id }).select('url').first();
 
   if (!url) {
-    throw new Error('The id is not valid');
+    throw new httpError.NotFound('URL not found');
   }
 
   return url.url;
@@ -46,11 +46,13 @@ export const updateURL = async (
   const url = await knex('urls').where({ id }).select(['user_id']).first();
 
   if (!url) {
-    throw new Error('URL is not found');
+    throw new httpError.NotFound('URL not found');
   }
 
   if (url.user_id !== user_id) {
-    throw new Error("Your don't have permissions to update this URL");
+    throw new httpError.Unauthorized(
+      "Your don't have permissions to update this URL",
+    );
   }
 
   const results = await knex('urls')
@@ -64,11 +66,13 @@ export const deleteURL = async (id: string, user_id: number) => {
   const url = await knex('urls').where({ id }).select(['user_id']).first();
 
   if (!url) {
-    throw new Error('URL is not found');
+    throw new httpError.NotFound('URL not found');
   }
 
   if (url.user_id !== user_id) {
-    throw new Error("Your don't have permissions to update this URL");
+    throw new httpError.Unauthorized(
+      "Your don't have permissions to update this URL",
+    );
   }
 
   await knex('urls').where({ id }).delete();

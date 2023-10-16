@@ -1,4 +1,5 @@
 import { ZodError, ZodObject, z } from 'zod';
+import httpError from 'http-errors';
 
 type RequestBody = { [key: string]: any };
 
@@ -7,12 +8,11 @@ const createShortUrlSchema = z.object({
     .string()
     .min(5, { message: 'ID must be at least 5 characters' })
     .max(10, { message: 'ID must not exceed 10 characters' })
-    .or(z.undefined())
-    .refine((value) => value !== undefined, {
-      message: 'ID is required',
-    }),
+    .optional(),
+
   url: z
     .string()
+    .url({ message: 'The url format is invalid' })
     .or(z.undefined())
     .refine((value) => value !== undefined, {
       message: 'URL is required',
@@ -22,6 +22,7 @@ const createShortUrlSchema = z.object({
 const updateShortURLSchema = z.object({
   url: z
     .string()
+    .url({ message: 'The url format is invalid' })
     .or(z.undefined())
     .refine((value) => value !== undefined, {
       message: 'URL is required',
@@ -38,9 +39,9 @@ const validateBody = (body: RequestBody, validation_schema: BodySchema) => {
     if (error instanceof ZodError) {
       const aggregatedErrors = error.issues.map((issue) => issue.message);
       // console.log(aggregatedErrors);
-      throw new Error(aggregatedErrors.join(', '));
+      throw new httpError.BadRequest(aggregatedErrors.join(', '));
     } else {
-      throw error;
+      throw new httpError.InternalServerError('Server error');
     }
   }
 };
