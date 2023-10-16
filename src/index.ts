@@ -7,6 +7,7 @@ import httpError from 'http-errors';
 
 import { getConfig } from './config/getConfig';
 import { onDatabaseConnect } from './config/knex';
+import router from './routes';
 
 const { PORT } = getConfig();
 
@@ -15,6 +16,8 @@ const app = new Koa();
 app.use(cors());
 app.use(koaHelmet());
 app.use(bodyParser());
+
+app.use(router.routes()).use(router.allowedMethods());
 
 const main = async () => {
   try {
