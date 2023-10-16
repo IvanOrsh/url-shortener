@@ -29,6 +29,25 @@ const updateShortURLSchema = z.object({
     }),
 });
 
+const registerUserSchema = z.object({
+  username: z
+    .string()
+    .min(4, { message: 'Username must be at least 4 characters' })
+    .max(8, { message: 'Username must not exceed 8 characters' })
+    .or(z.undefined())
+    .refine((value) => value !== undefined, {
+      message: 'Username is required',
+    }),
+
+  password: z
+    .string()
+    .min(6, { message: 'Password must be at least 6 characters' })
+    .or(z.undefined())
+    .refine((value) => value !== undefined, {
+      message: 'Password is required',
+    }),
+});
+
 type BodySchema = ZodObject<RequestBody>;
 
 const validateBody = (body: RequestBody, validation_schema: BodySchema) => {
@@ -51,3 +70,6 @@ export const validateCreateShortURL = (body: RequestBody) =>
 
 export const validateUpdateShortURL = (body: RequestBody) =>
   validateBody(body, updateShortURLSchema);
+
+export const validateRegister = (body: RequestBody) =>
+  validateBody(body, registerUserSchema);
